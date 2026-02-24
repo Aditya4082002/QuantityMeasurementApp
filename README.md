@@ -2,7 +2,7 @@
 
 A scalable Java-based measurement system that supports **length comparison and unit-to-unit conversion** using clean Object-Oriented Design principles.
 
-This project evolves progressively from basic equality checks (UC1) to a fully designed conversion API (UC5), demonstrating refactoring, abstraction, scalability, and proper API design.
+This project evolves progressively from basic equality checks (UC1) to a fully designed conversion API (UC5)
 
 ---
 
