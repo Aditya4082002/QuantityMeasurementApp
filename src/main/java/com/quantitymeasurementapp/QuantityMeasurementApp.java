@@ -36,6 +36,21 @@ public class QuantityMeasurementApp {
 			this.value = value;
 			this.unit = unit;
 		}
+		
+		public QuantityLength add(QuantityLength other) {
+			if(other == null) {
+				throw new IllegalArgumentException("Second operand can not be null.");
+			}
+			
+			double value1 = this.convertToBase();
+			double value2 = other.convertToBase();
+			
+			double total = value1 + value2;
+			
+			double converted =  convert(total,LengthUnit.FEET,this.unit);
+			double rounded = Math.round(converted*100)/100.0;
+			return new QuantityLength(rounded, this.unit);
+		}
 
 		public double getValue() {
 			return value;
@@ -80,6 +95,13 @@ public class QuantityMeasurementApp {
 			return "Quantity(" + value + ", " + unit + ")";
 		}
 	}
+	
+	public static QuantityLength add(QuantityLength value1,QuantityLength value2) {
+		if(value1 == null) {
+			throw new IllegalArgumentException("First operand can not be null.");
+		}
+		return value1.add(value2);
+	}
 
 	//unit to unit conversion
 	public static double convert(double value, LengthUnit source, LengthUnit target) {
@@ -103,11 +125,20 @@ public class QuantityMeasurementApp {
 
 	public static void main(String[] args) {
 
-		demonstrateLengthConversion(1.0, LengthUnit.FEET, LengthUnit.INCH);
-		demonstrateLengthConversion(3.0, LengthUnit.YARD, LengthUnit.FEET);
-		demonstrateLengthConversion(36.0, LengthUnit.INCH, LengthUnit.YARD);
-		demonstrateLengthConversion(1.0, LengthUnit.CENTIMETER, LengthUnit.INCH);
-		demonstrateLengthConversion(0.0, LengthUnit.FEET, LengthUnit.INCH);
+//		demonstrateLengthConversion(1.0, LengthUnit.FEET, LengthUnit.INCH);
+//		demonstrateLengthConversion(3.0, LengthUnit.YARD, LengthUnit.FEET);
+//		demonstrateLengthConversion(36.0, LengthUnit.INCH, LengthUnit.YARD);
+//		demonstrateLengthConversion(1.0, LengthUnit.CENTIMETER, LengthUnit.INCH);
+//		demonstrateLengthConversion(0.0, LengthUnit.FEET, LengthUnit.INCH);
+		
+		
+		QuantityLength l1 = new QuantityLength(1.0,LengthUnit.FEET);
+		QuantityLength l2 = new QuantityLength(3.0,LengthUnit.YARD);
+		QuantityLength l3 = new QuantityLength(36.0,LengthUnit.INCH);
+		QuantityLength l4 = new QuantityLength(1.0,LengthUnit.CENTIMETER);
+		
+		System.out.println(add(l1,l2));
+		System.out.println(l3.add(l4));
 
 	}
 }

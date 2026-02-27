@@ -265,5 +265,25 @@ public class QuantityMeasurementAppTest {
 
 		assertEquals(6.0, result);
 	}
+	
+	@Test
+    public void testAddition_SameUnit_FeetPlusFeet() {
+    	QuantityLength l1 = new QuantityLength(1.0, LengthUnit.FEET);
+    	QuantityLength l2 = new QuantityLength(2.0, LengthUnit.FEET);
+
+    	QuantityLength result = l1.add(l2);
+        assertEquals(new QuantityLength(3.0, LengthUnit.FEET), result);
+    }
+    
+    //addition static method
+    @Test
+    public void testAddition_CrossUnit_FeetPlusInches() {
+    	QuantityLength l1 = new QuantityLength(1.0, LengthUnit.FEET);
+    	QuantityLength l2 = new QuantityLength(12.0, LengthUnit.INCH);
+
+    	QuantityLength result = l1.add(l2);
+
+        assertEquals(new QuantityLength(2.0, LengthUnit.FEET), result);
+    }
 
 }
