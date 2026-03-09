@@ -48,5 +48,16 @@ public class QuantityMeasurementApp {
 		QuantityLength l5 = new QuantityLength(2.54, LengthUnit.CENTIMETER);
 
 		System.out.println(l5.convertTo(LengthUnit.INCH));
+		
+		QuantityWeight w1 = new QuantityWeight(1.0, WeightUnit.KILOGRAM);
+		QuantityWeight w2 = new QuantityWeight(1000.0, WeightUnit.GRAM);
+
+		System.out.println(w1.equals(w2)); 
+
+		System.out.println(w1.convertTo(WeightUnit.POUND));
+
+		System.out.println(w1.add(w2));
+
+		System.out.println(w1.add(w2, WeightUnit.GRAM));
 	}
 }
