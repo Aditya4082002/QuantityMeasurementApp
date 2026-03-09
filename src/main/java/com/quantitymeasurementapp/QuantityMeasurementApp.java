@@ -51,6 +51,26 @@ public class QuantityMeasurementApp {
 			double rounded = Math.round(converted*100)/100.0;
 			return new QuantityLength(rounded, this.unit);
 		}
+		
+		public QuantityLength add(QuantityLength other,LengthUnit target) {
+			if(other==null) {
+				throw new IllegalArgumentException("Second operand can not be null.");
+			}
+			if(target==null) {
+				throw new IllegalArgumentException("target can not be null");
+			}
+			
+			double value1 = this.convertToBase();
+			double value2 = other.convertToBase();
+			
+			double total = value1+value2;
+			
+			double converted =  convert(total,LengthUnit.FEET,target);
+			double rounded = Math.round(converted*1000)/1000.0;
+			return new QuantityLength(rounded, target);
+		}
+		
+		
 
 		public double getValue() {
 			return value;
@@ -102,6 +122,12 @@ public class QuantityMeasurementApp {
 		}
 		return value1.add(value2);
 	}
+	public static QuantityLength add(QuantityLength value1,QuantityLength value2,LengthUnit target) {
+		if(value1 == null) {
+			throw new IllegalArgumentException("First operand can not be null.");
+		}
+		return value1.add(value2,target);
+	}
 
 	//unit to unit conversion
 	public static double convert(double value, LengthUnit source, LengthUnit target) {
@@ -137,8 +163,8 @@ public class QuantityMeasurementApp {
 		QuantityLength l3 = new QuantityLength(36.0,LengthUnit.INCH);
 		QuantityLength l4 = new QuantityLength(1.0,LengthUnit.CENTIMETER);
 		
-		System.out.println(add(l1,l2));
-		System.out.println(l3.add(l4));
+		System.out.println(add(l1,l2,LengthUnit.INCH));
+		System.out.println(l3.add(l4,LengthUnit.FEET));
 
 	}
 }

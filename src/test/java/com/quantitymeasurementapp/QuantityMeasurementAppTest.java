@@ -285,5 +285,15 @@ public class QuantityMeasurementAppTest {
 
         assertEquals(new QuantityLength(2.0, LengthUnit.FEET), result);
     }
+    
+    @Test
+    public void testAddition_with_target() {
+    	QuantityLength l1 = new QuantityLength(1.0, LengthUnit.FEET);
+    	QuantityLength l2 = new QuantityLength(3.0, LengthUnit.YARD);
+
+    	QuantityLength result = l1.add(l2,LengthUnit.INCH);
+
+        assertEquals(new QuantityLength(120.0, LengthUnit.INCH), result);
+    }
 
 }
