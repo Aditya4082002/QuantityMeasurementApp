@@ -50,6 +50,9 @@ public class Quantity<U extends Measurable> {
 	// base arithematic method
 	private double performBaseArithematic(Quantity<U> other, ArithematicOperation operation) {
 
+		this.unit.validateOperationSupport(operation.name());
+		other.unit.validateOperationSupport(operation.name());
+
 		double base1 = unit.convertToBaseUnit(value);
 		double base2 = other.unit.convertToBaseUnit(other.value);
 

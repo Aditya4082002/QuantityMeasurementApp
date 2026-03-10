@@ -237,7 +237,7 @@ public class QuantityMeasurementAppTest {
 
 		assertEquals(new Quantity<>(0, VolumeUnit.GALLON), result);
 	}
-	
+
 	@Test
 	public void testSubtraction_KilogramMinusGram() {
 		Quantity<WeightUnit> kg = new Quantity<>(2.0, WeightUnit.KILOGRAM);
@@ -247,9 +247,9 @@ public class QuantityMeasurementAppTest {
 
 		assertEquals(new Quantity<>(1, WeightUnit.KILOGRAM), result);
 	}
-	
-	//DIVISION TEST
-	
+
+	// DIVISION TEST
+
 	@Test
 	public void testDivision_KilogramDivideGram() {
 		Quantity<WeightUnit> kg = new Quantity<>(4.0, WeightUnit.KILOGRAM);
@@ -259,7 +259,6 @@ public class QuantityMeasurementAppTest {
 
 		assertEquals(new Quantity<>(2, WeightUnit.KILOGRAM), result);
 	}
-	
 
 	// CATEGORY SAFETY
 
@@ -286,4 +285,67 @@ public class QuantityMeasurementAppTest {
 
 		assertThrows(IllegalArgumentException.class, () -> new Quantity<>(Double.NaN, LengthUnit.FEET));
 	}
+
+	// TEMPERATURE TESTS
+
+	@Test
+	public void testTemperatureEquality_CelsiusToCelsius() {
+
+		Quantity<TemperatureUnit> c1 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+
+		Quantity<TemperatureUnit> c2 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+
+		assertTrue(c1.equals(c2));
+	}
+
+	@Test
+	public void testTemperatureEquality_FahrenheitToFahrenheit() {
+
+		Quantity<TemperatureUnit> f1 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+
+		Quantity<TemperatureUnit> f2 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+
+		assertTrue(f1.equals(f2));
+	}
+
+	@Test
+	public void testTemperatureEquality_CelsiusToFahrenheit() {
+
+		Quantity<TemperatureUnit> c = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+
+		Quantity<TemperatureUnit> f = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+
+		assertTrue(c.equals(f));
+	}
+
+	@Test
+	public void testTemperatureConversion_FahrenheitToCelsius() {
+
+		Quantity<TemperatureUnit> f = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+
+		Quantity<TemperatureUnit> result = f.convertTo(TemperatureUnit.CELSIUS);
+
+		assertEquals(0.0, result.getValue());
+	}
+
+	@Test
+	public void testTemperatureEquality_Negative40Equal() {
+
+		Quantity<TemperatureUnit> c = new Quantity<>(-40.0, TemperatureUnit.CELSIUS);
+
+		Quantity<TemperatureUnit> f = new Quantity<>(-40.0, TemperatureUnit.FAHRENHEIT);
+
+		assertTrue(c.equals(f));
+	}
+
+	@Test
+	public void testTemperatureConversion_CelsiusToFahrenheit() {
+
+		Quantity<TemperatureUnit> c = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+
+		Quantity<TemperatureUnit> result = c.convertTo(TemperatureUnit.FAHRENHEIT);
+
+		assertEquals(212.0, result.getValue());
+	}
+
 }

@@ -47,5 +47,23 @@ public class QuantityMeasurementApp {
 		System.out.println(gal.add(l,VolumeUnit.MILLILITER));
 		
 		System.out.println(l.subtract(gal));
+		
+		//Temperature Example
+		
+		Quantity<TemperatureUnit> celsius =
+		        new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+
+		Quantity<TemperatureUnit> fahrenheit =
+		        new Quantity<>(212.0, TemperatureUnit.FAHRENHEIT);
+
+		System.out.println(celsius.equals(fahrenheit));
+
+		System.out.println(celsius.convertTo(TemperatureUnit.FAHRENHEIT));
+
+		try {
+		    System.out.println(celsius.add(new Quantity<>(50.0, TemperatureUnit.CELSIUS)));
+		} catch (UnsupportedOperationException e) {
+		    System.out.println(e.getMessage());
+		}
 	}
 }
