@@ -31,6 +31,32 @@ public class Quantity<U extends Measurable> {
 		return unit.convertToBaseUnit(value);
 	}
 
+	// helper method
+	private void validateArithematicOperands(Quantity<U> other, U targetUnit, boolean targetUnitRequired) {
+		if (other == null) {
+			throw new IllegalArgumentException("Unit cannot be null");
+		}
+		if (!Double.isFinite(value) || !Double.isFinite(other.value)) {
+			throw new IllegalArgumentException("Value must be finite");
+		}
+		if (!this.unit.getClass().equals(other.unit.getClass())) {
+			throw new IllegalArgumentException("Different measurement categories.");
+		}
+		if (targetUnitRequired && targetUnit == null) {
+			throw new IllegalArgumentException("Target Unit required.");
+		}
+	}
+
+	// base arithematic method
+	private double performBaseArithematic(Quantity<U> other, ArithematicOperation operation) {
+
+		double base1 = unit.convertToBaseUnit(value);
+		double base2 = other.unit.convertToBaseUnit(other.value);
+
+		return operation.compute(base1, base2);
+
+	}
+
 	// Equality
 
 	@Override
@@ -74,11 +100,9 @@ public class Quantity<U extends Measurable> {
 	// Addition
 
 	public Quantity<U> add(Quantity<U> other) {
+		validateArithematicOperands(other, null, false);
 
-		if (other == null) {
-			throw new IllegalArgumentException("Other quantity cannot be null");
-		}
-		double totalBase = this.convertToBase() + other.unit.convertToBaseUnit(other.value);
+		double totalBase = performBaseArithematic(other, ArithematicOperation.ADD);
 
 		double converted = unit.convertFromBaseUnit(totalBase);
 
@@ -89,13 +113,9 @@ public class Quantity<U extends Measurable> {
 
 	public Quantity<U> add(Quantity<U> other, U targetUnit) {
 
-		if (other == null) {
-			throw new IllegalArgumentException("Other quantity cannot be null");
-		}
-		if (targetUnit == null) {
-			throw new IllegalArgumentException("Target unit cannot be null");
-		}
-		double totalBase = this.convertToBase() + other.unit.convertToBaseUnit(other.value);
+		validateArithematicOperands(other, targetUnit, true);
+
+		double totalBase = performBaseArithematic(other, ArithematicOperation.ADD);
 
 		double converted = targetUnit.convertFromBaseUnit(totalBase);
 
@@ -105,16 +125,10 @@ public class Quantity<U extends Measurable> {
 	}
 
 	public Quantity<U> subtract(Quantity<U> other) {
-		if (other == null) {
-			throw new IllegalArgumentException("Other quantity cannot be null");
-		}
 
-		// prevent cross-category
-		if (!this.unit.getClass().equals(other.unit.getClass())) {
-			throw new IllegalArgumentException("Different measurement categories.");
-		}
+		validateArithematicOperands(other, null, false);
 
-		double result = this.convertToBase() - other.unit.convertToBaseUnit(other.value);
+		double result = performBaseArithematic(other, ArithematicOperation.SUBTRACT);
 
 		double converted = unit.convertFromBaseUnit(result);
 
@@ -123,41 +137,20 @@ public class Quantity<U extends Measurable> {
 	}
 
 	public Quantity<U> subtract(Quantity<U> other, U targetUnit) {
-		if (other == null) {
-			throw new IllegalArgumentException("Other quantity cannot be null");
-		}
-		if (targetUnit == null) {
-			throw new IllegalArgumentException("Target unit cannot be null");
-		}
+		validateArithematicOperands(other, targetUnit, true);
 
-		// prevent cross-category
-		if (!this.unit.getClass().equals(other.unit.getClass())) {
-			throw new IllegalArgumentException("Different measurement categories.");
-		}
-
-		double result = this.convertToBase() - other.unit.convertToBaseUnit(other.value);
+		double result = performBaseArithematic(other, ArithematicOperation.SUBTRACT);
 
 		double converted = targetUnit.convertFromBaseUnit(result);
 
 		double rounded = Math.round(converted * 100.0) / 100.0;
 		return new Quantity<>(rounded, targetUnit);
 	}
-	
-	public Quantity<U> divide(Quantity<U> other){
-		if (other == null) {
-			throw new IllegalArgumentException("Other quantity cannot be null");
-		}
 
-		// prevent cross-category
-		if (!this.unit.getClass().equals(other.unit.getClass())) {
-			throw new IllegalArgumentException("Different measurement categories.");
-		}
-		
-		if(other.value==0) {
-			throw new ArithmeticException("Divide by zero is not allowed.");
-		}
+	public Quantity<U> divide(Quantity<U> other) {
+		validateArithematicOperands(other, null, false);
 
-		double result = this.convertToBase() / other.unit.convertToBaseUnit(other.value);
+		double result = performBaseArithematic(other, ArithematicOperation.DIVIDE);
 
 		double converted = unit.convertFromBaseUnit(result);
 
@@ -169,4 +162,34 @@ public class Quantity<U extends Measurable> {
 	public String toString() {
 		return "Quantity(" + value + ", " + unit.getUnitName() + ")";
 	}
+
+	// Enum
+	private enum ArithematicOperation {
+		ADD {
+			@Override
+			public double compute(double a, double b) {
+				return a + b;
+			}
+		},
+		SUBTRACT {
+
+			@Override
+			public double compute(double a, double b) {
+				return a - b;
+			}
+		},
+		DIVIDE {
+
+			@Override
+			public double compute(double a, double b) {
+				if (b == 0) {
+					throw new ArithmeticException("Divison by zero is not allowed.");
+				}
+				return a / b;
+			}
+		};
+
+		public abstract double compute(double a, double b);
+	}
+
 }
