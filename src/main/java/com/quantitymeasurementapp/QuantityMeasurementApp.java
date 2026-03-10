@@ -5,7 +5,7 @@ public class QuantityMeasurementApp {
 	public static void main(String[] args) {
 
 		// Length Example
-		Quantity<LengthUnit> feet = new Quantity<>(1.0, LengthUnit.FEET);
+		Quantity<LengthUnit> feet = new Quantity<>(2.0, LengthUnit.FEET);
 
 		Quantity<LengthUnit> inches = new Quantity<>(12.0, LengthUnit.INCH);
 
@@ -14,6 +14,10 @@ public class QuantityMeasurementApp {
 		System.out.println(feet.convertTo(LengthUnit.INCH));
 
 		System.out.println(feet.add(inches, LengthUnit.FEET));
+		
+		System.out.println(feet.subtract(inches, LengthUnit.INCH));
+		
+		System.out.println(feet.divide(inches));
 
 		// Weight Example
 		Quantity<WeightUnit> kg = new Quantity<>(1.0, WeightUnit.KILOGRAM);
@@ -26,6 +30,11 @@ public class QuantityMeasurementApp {
 
 		System.out.println(kg.add(gram, WeightUnit.KILOGRAM));
 		
+		System.out.println(kg.subtract(gram, WeightUnit.KILOGRAM));
+		
+		System.out.println(kg.divide(gram));
+		
+		
 		//Volume Example 
 		Quantity<VolumeUnit> gal = new Quantity<>(1.0,VolumeUnit.GALLON);
 		
@@ -36,5 +45,7 @@ public class QuantityMeasurementApp {
 		System.out.println(gal.convertTo(VolumeUnit.MILLILITER));
 		
 		System.out.println(gal.add(l,VolumeUnit.MILLILITER));
+		
+		System.out.println(l.subtract(gal));
 	}
 }

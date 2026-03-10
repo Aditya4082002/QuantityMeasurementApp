@@ -52,25 +52,24 @@ public class QuantityMeasurementAppTest {
 
 		assertTrue(lb.equals(g));
 	}
-	
-	//VOLUME EQUALITY
-	
+
+	// VOLUME EQUALITY
+
 	@Test
 	public void testEquality_GallonToLiter() {
-		Quantity<VolumeUnit> gal = new Quantity<>(1.0,VolumeUnit.GALLON);
-		Quantity<VolumeUnit> l = new Quantity<>(3.78541,VolumeUnit.LITER);
-		
+		Quantity<VolumeUnit> gal = new Quantity<>(1.0, VolumeUnit.GALLON);
+		Quantity<VolumeUnit> l = new Quantity<>(3.78541, VolumeUnit.LITER);
+
 		assertTrue(gal.equals(l));
 	}
-	
+
 	@Test
 	public void testEquality_LiterToMilliliter() {
-		Quantity<VolumeUnit> l = new Quantity<>(1.0,VolumeUnit.LITER);
-		Quantity<VolumeUnit> ml = new Quantity<>(1000.0,VolumeUnit.MILLILITER);
-		
+		Quantity<VolumeUnit> l = new Quantity<>(1.0, VolumeUnit.LITER);
+		Quantity<VolumeUnit> ml = new Quantity<>(1000.0, VolumeUnit.MILLILITER);
+
 		assertTrue(l.equals(ml));
 	}
-	
 
 	// LENGTH CONVERSION
 
@@ -124,26 +123,26 @@ public class QuantityMeasurementAppTest {
 
 		assertEquals(2.20462, result.getValue(), 0.01);
 	}
-	
-	//VOLUME CONVERSION
+
+	// VOLUME CONVERSION
 	@Test
 	public void testConversion_GallonToLiter() {
-		Quantity<VolumeUnit> gal = new Quantity<>(1.0,VolumeUnit.GALLON);
-		
+		Quantity<VolumeUnit> gal = new Quantity<>(1.0, VolumeUnit.GALLON);
+
 		Quantity<VolumeUnit> result = gal.convertTo(VolumeUnit.LITER);
-		
-		assertEquals(3.78541,result.getValue(),0.01);
+
+		assertEquals(3.78541, result.getValue(), 0.01);
 	}
 
 	@Test
 	public void testConversion_LiterToMilliliter() {
-		Quantity<VolumeUnit> l = new Quantity<>(1.0,VolumeUnit.LITER);
-		
+		Quantity<VolumeUnit> l = new Quantity<>(1.0, VolumeUnit.LITER);
+
 		Quantity<VolumeUnit> result = l.convertTo(VolumeUnit.MILLILITER);
-		
-		assertEquals(1000.0,result.getValue());
+
+		assertEquals(1000.0, result.getValue());
 	}
-	
+
 	// LENGTH ADDITION
 
 	@Test
@@ -202,29 +201,65 @@ public class QuantityMeasurementAppTest {
 
 		assertEquals(new Quantity<>(2.0, WeightUnit.KILOGRAM), result);
 	}
-	
-	//VOLUME ADDITION
+
+	// VOLUME ADDITION
 	@Test
 	public void testAddition_LiterPlusMilliliter() {
-		Quantity<VolumeUnit> l = new Quantity<>(1.0,VolumeUnit.LITER);
-		Quantity<VolumeUnit> ml = new Quantity<>(5000.0,VolumeUnit.MILLILITER);
-		
+		Quantity<VolumeUnit> l = new Quantity<>(1.0, VolumeUnit.LITER);
+		Quantity<VolumeUnit> ml = new Quantity<>(5000.0, VolumeUnit.MILLILITER);
+
 		Quantity<VolumeUnit> result = l.add(ml);
-		
-		assertEquals(new Quantity<>(6.0,VolumeUnit.LITER),result);
+
+		assertEquals(new Quantity<>(6.0, VolumeUnit.LITER), result);
+	}
+
+	@Test
+	public void testAddition_GallonPlusLiter() {
+		Quantity<VolumeUnit> gal = new Quantity<>(1.0, VolumeUnit.GALLON);
+
+		Quantity<VolumeUnit> l = new Quantity<>(3.78541, VolumeUnit.LITER);
+
+		Quantity<VolumeUnit> result = gal.add(l);
+
+		assertEquals(new Quantity<>(2.0, VolumeUnit.GALLON), result);
+
+	}
+
+	// SUBTRACTION TEST
+
+	@Test
+	public void testSubtraction_GallonMinusLiter() {
+		Quantity<VolumeUnit> gal = new Quantity<>(1.0, VolumeUnit.GALLON);
+
+		Quantity<VolumeUnit> l = new Quantity<>(3.78541, VolumeUnit.LITER);
+
+		Quantity<VolumeUnit> result = gal.subtract(l);
+
+		assertEquals(new Quantity<>(0, VolumeUnit.GALLON), result);
 	}
 	
 	@Test
-	public void testAddition_GallonPlusLiter() {
-		Quantity<VolumeUnit> gal = new Quantity<>(1.0,VolumeUnit.GALLON);
-		
-		Quantity<VolumeUnit> l = new Quantity<>(3.78541,VolumeUnit.LITER);
-		
-		Quantity<VolumeUnit> result = gal.add(l);
-		
-		assertEquals(new Quantity<>(2.0,VolumeUnit.GALLON),result);
-		
+	public void testSubtraction_KilogramMinusGram() {
+		Quantity<WeightUnit> kg = new Quantity<>(2.0, WeightUnit.KILOGRAM);
+		Quantity<WeightUnit> g = new Quantity<>(1000.0, WeightUnit.GRAM);
+
+		Quantity<WeightUnit> result = kg.subtract(g);
+
+		assertEquals(new Quantity<>(1, WeightUnit.KILOGRAM), result);
 	}
+	
+	//DIVISION TEST
+	
+	@Test
+	public void testDivision_KilogramDivideGram() {
+		Quantity<WeightUnit> kg = new Quantity<>(4.0, WeightUnit.KILOGRAM);
+		Quantity<WeightUnit> g = new Quantity<>(2000.0, WeightUnit.GRAM);
+
+		Quantity<WeightUnit> result = kg.divide(g);
+
+		assertEquals(new Quantity<>(2, WeightUnit.KILOGRAM), result);
+	}
+	
 
 	// CATEGORY SAFETY
 
