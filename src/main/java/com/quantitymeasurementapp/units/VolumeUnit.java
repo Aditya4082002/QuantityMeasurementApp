@@ -1,35 +1,36 @@
-package com.quantitymeasurementapp;
+package com.quantitymeasurementapp.units;
 
-public enum LengthUnit implements Measurable {
-
-	FEET(1.0), 
-	INCH(1.0 / 12.0), 
-	YARD(3.0), 
-	CENTIMETER(0.0328084167);
-
-	private final double conversionFactor;
-
-	LengthUnit(double conversionFactor) {
+public enum VolumeUnit implements Measurable{
+	
+	LITER(1.0),
+	MILLILITER(0.001),
+	GALLON(3.78541);
+	
+	private VolumeUnit(double conversionFactor) {
 		this.conversionFactor = conversionFactor;
 	}
 
+	private final double conversionFactor;
+
 	@Override
 	public double getConversionFactor() {
+		
 		return conversionFactor;
 	}
 
 	@Override
 	public double convertToBaseUnit(double value) {
-		return value * conversionFactor;
+		return value*conversionFactor;
 	}
 
 	@Override
 	public double convertFromBaseUnit(double baseValue) {
-		return baseValue / conversionFactor;
+		return baseValue/conversionFactor;
 	}
 
 	@Override
 	public String getUnitName() {
 		return this.name();
 	}
+	
 }
