@@ -30,4 +30,10 @@ public class QuantityMeasurementCacheRepository implements IQuantityMeasurementR
 	public List<QuantityMeasurementEntity> findAll() {
 		return cache;
 	}
+
+	@Override
+	public void printAllMeasurements() {
+		// TODO Auto-generated method stub
+		
+	}
 }
