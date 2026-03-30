@@ -1,16 +1,13 @@
-package com.app.quantitymeasurement.model;
+package com.app.quantitymeasurement.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.app.quantitymeasurement.model.QuantityMeasurementEntity;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+
 public class QuantityMeasurementDTO {
 
     private String operation;

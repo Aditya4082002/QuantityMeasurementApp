@@ -1,9 +1,9 @@
-package com.app.quantitymeasurement.model;
+package com.app.quantitymeasurement.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-@Data
+//@Data
 public class QuantityDTO {
 
     @NotNull(message = "Value cannot be null")

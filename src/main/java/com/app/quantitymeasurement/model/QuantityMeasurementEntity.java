@@ -8,15 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "quantity_measurement")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class QuantityMeasurementEntity {
 
     @Id

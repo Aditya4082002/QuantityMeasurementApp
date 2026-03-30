@@ -11,9 +11,9 @@ import com.app.quantitymeasurement.core.Quantity;
 import com.app.quantitymeasurement.core.TemperatureUnit;
 import com.app.quantitymeasurement.core.VolumeUnit;
 import com.app.quantitymeasurement.core.WeightUnit;
-import com.app.quantitymeasurement.model.QuantityDTO;
-import com.app.quantitymeasurement.model.QuantityInputDTO;
-import com.app.quantitymeasurement.model.QuantityMeasurementDTO;
+import com.app.quantitymeasurement.dto.QuantityDTO;
+import com.app.quantitymeasurement.dto.QuantityInputDTO;
+import com.app.quantitymeasurement.dto.QuantityMeasurementDTO;
 import com.app.quantitymeasurement.model.QuantityMeasurementEntity;
 import com.app.quantitymeasurement.repository.QuantityMeasurementRepository;
 

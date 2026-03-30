@@ -14,12 +14,12 @@ import com.app.quantitymeasurement.model.QuantityMeasurementEntity;
 public interface QuantityMeasurementRepository
         extends JpaRepository<QuantityMeasurementEntity, Long> {
 
-    // 🔍 find by operation (ADD, SUBTRACT, etc.)
+    //find by operation (ADD, SUBTRACT, etc.)
     List<QuantityMeasurementEntity> findByOperation(String operation);
 
-    // 🔍 get records after a certain time
+    //get records after a certain time
     List<QuantityMeasurementEntity> findByCreatedAtAfter(LocalDateTime time);
 
-    // 🔍 count operations
+    //count operations
     long countByOperation(String operation);
 }

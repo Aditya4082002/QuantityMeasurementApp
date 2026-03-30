@@ -1,7 +1,7 @@
 package com.app.quantitymeasurement.controller;
 
-import com.app.quantitymeasurement.model.QuantityInputDTO;
-import com.app.quantitymeasurement.model.QuantityMeasurementDTO;
+import com.app.quantitymeasurement.dto.QuantityInputDTO;
+import com.app.quantitymeasurement.dto.QuantityMeasurementDTO;
 import com.app.quantitymeasurement.service.IQuantityMeasurementService;
 
 import jakarta.validation.Valid;
@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/quantities")
 public class QuantityMeasurementController {
 
     @Autowired
     private IQuantityMeasurementService service;
-
+   
+    
     //COMPARE
     @PostMapping("/compare")
     public QuantityMeasurementDTO compare(@Valid @RequestBody QuantityInputDTO input) {
