@@ -15,6 +15,7 @@ import com.app.quantitymeasurement.security.jwt.JwtUtil;
 import com.app.quantitymeasurement.security.repository.UserRepository;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/auth")
 public class AuthController {
 
