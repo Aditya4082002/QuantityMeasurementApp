@@ -29,7 +29,13 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/auth/**").permitAll() // login open
-                    .requestMatchers("/login/**").permitAll() // OAuth login
+                    .requestMatchers("/login/**").permitAll()
+                    .requestMatchers(
+                            "/swagger-ui/**",
+                            "/api-docs/**",
+                            "/v3/api-docs/**",
+                            "/swagger-ui.html"
+                        ).permitAll()// OAuth login
                     .anyRequest().authenticated() // all other secured
             )
             
