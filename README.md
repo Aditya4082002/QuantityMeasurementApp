@@ -22,6 +22,8 @@ The application allows:
 ---  
   
 # 🏗️ Project Structure  
+
+```
 QuantityMeasurementApp/  
 │  
 ├── src/  
@@ -100,6 +102,7 @@ QuantityMeasurementApp/
 ├── pom.xml  
 └── README.md  
 
+```
 ---
 
 # 📚 Use Cases Implemented
